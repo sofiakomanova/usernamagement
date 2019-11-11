@@ -1,0 +1,1 @@
+package ua.nure.kn.komanova.usermanagement.db;
