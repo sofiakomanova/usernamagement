@@ -57,6 +57,13 @@ public class HsqldbUserDaoTest extends DatabaseTestCase {
 		assertNotNull(foundUser);
 		assertEquals(defaultUser.getId(), foundUser.getId());
 	}
+	public void testFindByFNandLN() throws DatabaseExeption {
+		User defaultUser = dao.create(user);
+		assertNotNull(defaultUser.getId());
+		Collection<User> foundUsers = dao.find(defaultUser.getFirstName(), defaultUser.getLastName());
+		assertNotNull(foundUsers);
+		assertEquals(defaultUser.getId(), foundUsers.iterator().next().getId());
+	}
 
 	public void testUpdate() throws DataBaseExeption {
 		User testUser = dao.create(user);
