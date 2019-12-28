@@ -154,6 +154,30 @@ public class HsqldbUserDao implements UserDao {
 		}
 		return result;
 	}
+	public Collection<User> find(String firstName, String lastName) throws DatabaseExeption {
+		Collection<User> result = new LinkedList<User>();
+		try {
+			Connection connection = connectionFactory.createConnection();
+			PreparedStatement statement = connection.prepareStatement(SELECT_BY_NAMES_QUERY);
+			statement.setString(1, firstName);
+			statement.setString(2, lastName);
+			ResultSet resultSet = statement.executeQuery();
+			while (resultSet.next()) {
+				User user = new User();
+				user.setId(new Long(resultSet.getLong(1)));
+				user.setFirstName(resultSet.getString(2));
+				user.setLastName(resultSet.getString(3));
+				user.setDateOfBirth(resultSet.getDate(4));
+				result.add(user);
+			}
+		} catch (DatabaseExeption e) {
+			throw e;
+		} catch (SQLException e) {
+			throw new DatabaseExeption(e);
+		}
+		
+		return result;
+	}
 
 
 }

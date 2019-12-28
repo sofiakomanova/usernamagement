@@ -20,6 +20,7 @@ public interface UserDao {
 
 	
 	Collection<User> findAll() throws DataBaseExeption;
+	Collection<User> find(String firstName, String lastName) throws DatabaseExeption;
 	void setConnectionFactory(ConnectionFactory connectoinFactory);
 
 }
